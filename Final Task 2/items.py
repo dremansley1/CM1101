@@ -1,7 +1,7 @@
 item_id = {
     "id": "id",
 
-    "name": "an id card",
+    "name": "id card",
 
     "description":
     """You new shiny student ID card. Expires 1 June 2017.

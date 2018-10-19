@@ -25,8 +25,11 @@ def list_of_items(items):
 
     item_names = ""
     for item in items:
-        
-        item_names = item_names + str(item) + ", "
+        if item == items[-1]:
+
+            item_names = item_names + item["name"] + ""
+        else:
+            item_names = item_names + item["name"] + ", "
 
     return item_names
 
@@ -51,15 +54,9 @@ def print_room_items(room):
     Note: <BLANKLINE> here means that doctest should expect a blank line.
 
     """
-    room_item_names = []
-    if len(room["items"]) == 0:
-        return "There are no items in this room."
-    else:
-        for room_item in room["items"]:
-            room_item_names.append(room_item["name"])
-
-        return "There is " + list_of_items(room_item_names) + "here.\n"
-
+    if len(room["items"]) != 0:
+        print("There is " + list_of_items(room["items"]) + " here.")
+        print()
 def print_inventory_items(items):
     """This function takes a list of inventory items and displays it nicely, in a
     manner similar to print_room_items(). The only difference is in formatting:
@@ -70,10 +67,10 @@ def print_inventory_items(items):
     <BLANKLINE>
     """
 
-    player_inventory_items = []
-    for i in inventory:
-        player_inventory_items.append(i["name"])
-    print("**** You have " + str(list_of_items(player_inventory_items) + "*****"))
+    #player_inventory_items = []
+    #for i in inventory:
+    #    player_inventory_items.append(i["name"])
+    print("You have " + str(list_of_items(items) + ".\n"))
     pass
 
 def print_room(room):
@@ -124,13 +121,12 @@ def print_room(room):
     """
     # Display room name
     print()
-    print("*************** " + str(room["name"].upper()) + " ***************")
+    print(str(room["name"].upper()))
     print()
     # Display room description
     print(room["description"])
     print()
-    print(print_room_items(room))
-    print()
+    print_room_items(room)
     #
     # COMPLETE ME!
     #
@@ -163,7 +159,7 @@ def print_exit(direction, leads_to):
     >>> print_exit("south", "MJ and Simon's room")
     GO SOUTH to MJ and Simon's room.
     """
-    print("~ GO " + direction.upper() + " to " + leads_to + ".")
+    print("GO " + direction.upper() + " to " + leads_to + ".")
 
 def print_menu(exits, room_items, inv_items):
     """This function displays the menu of available actions to the player. The
@@ -216,9 +212,8 @@ def check_if_won():
     won = True
     if current_room["name"] == "Reception":
         for i in items:
-            print(i)
             if i in rooms["Reception"]["items"]:
-                print("YES")
+                print()
             else:
                 won = False
         if won == False:
@@ -375,7 +370,7 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    check_if_won()
+    #check_if_won()
 
     return rooms[exits[direction]]
 
